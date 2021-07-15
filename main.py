@@ -8,7 +8,7 @@ global hp_mon
 global attack_mon
 
 
-def choose_answer(answer: str):
+def choose_answer(answer: str) -> bool:
     """Возвращает флаг в зависимости от введенных данных."""
     while True:
         if answer.isdigit() and int(answer) == 1:
@@ -20,7 +20,7 @@ def choose_answer(answer: str):
             return choose_answer(input())
 
 
-def get_random_event():
+def get_random_event() -> int:
     """Возвращает одно из трёх значений для случайного выбора."""
     event = random.randrange(0, 3)
     if event == 0:
@@ -31,31 +31,32 @@ def get_random_event():
         return 1
 
 
-def create_monster():
+def create_monster() -> list:
     """Используется для создания параметров монстра: здоровье и атака."""
     global hp_mon
     global attack_mon
     hp_mon = random.randrange(1, 41)
     attack_mon = random.randrange(1, 31)
-    return hp_mon, attack_mon
+    return [hp_mon, attack_mon]
 
 
-def fight():
+def fight() -> list:
     """Возвращает количество единиц жизни у героя и монстра после одного удара."""
     global hp
-    global attack
     global hp_mon
-    global attack_mon
     hp -= attack_mon
     hp_mon -= attack
-    return hp, hp_mon
+    return [hp, hp_mon]
 
 
-def game():
+def game() -> None:
     """Содержит основное тело игры."""
     global hp
     global attack
     global monster_counter
+    global hp_mon
+    global attack_mon
+
     hp = random.randrange(10, 81, 10)
     attack = random.randrange(10, 51, 10)
     monster_counter = 0
